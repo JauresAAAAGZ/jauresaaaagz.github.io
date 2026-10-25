@@ -138,7 +138,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 .chip.wip { background: var(--warn-soft); color: var(--warn); }
 
-.body { min-width: 0; display: grid; gap: 16px; align-content: start; }
+.body { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; }
+.shot, .carousel .track-wrap { min-width: 0; }
 .body h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); line-height: 1.15; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
 .summary { margin: 0; max-width: 64ch; }
 .body ul { margin: 0; padding-left: 1.1em; max-width: 64ch; display: grid; gap: 6px; }
@@ -153,6 +154,24 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   display: block; width: 100%; max-width: 100%; height: auto;
   border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
 }
+.carousel .track-wrap { position: relative; }
+.carousel .track {
+  list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; gap: 12px; scrollbar-width: none; border-radius: var(--radius);
+}
+.carousel .track::-webkit-scrollbar { display: none; }
+.carousel .slide { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
+.slide-cap { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 0; font-size: .85rem; }
+.slide-n { font-family: var(--font-mono); color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.carousel .nav {
+  position: absolute; top: calc(50% - 32px); width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font-size: 1.5rem; line-height: 1; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.carousel .nav:hover { border-color: var(--accent); color: var(--accent); }
+.carousel .nav:disabled { opacity: .35; cursor: default; }
+.carousel .prev { left: 10px; } .carousel .next { right: 10px; }
 .shot figcaption { font-size: .82rem; color: var(--muted); margin-top: 8px; }
 
 .modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
@@ -289,9 +308,50 @@ footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; justify-cont
               <p><span lang="fr">Suivi du montant dû par service et par période, association des produits WHMCS aux services fournisseurs, export Excel.</span><span lang="en">Tracks amounts due per service and period, maps WHMCS products to supplier services, Excel export.</span></p>
             </section>
           </div>
-          <figure class="shot">
-            <a href="assets/whmcs-domain-monitor.webp" target="_blank" rel="noopener"><img src="assets/whmcs-domain-monitor.webp" width="1365" height="573" loading="lazy" alt="Tableau de bord Domain Status Monitor dans WHMCS"></a>
-            <figcaption><span lang="fr">Domain Status Monitor. Chiffres floutés.</span><span lang="en">Domain Status Monitor. Figures blurred.</span></figcaption>
+          <figure class="shot carousel" aria-roledescription="carousel" aria-label="Captures des modules WHMCS">
+            <div class="track-wrap">
+              <ul class="track" tabindex="0">
+              <li class="slide" aria-roledescription="slide" aria-label="1 / 9">
+                <a href="assets/whmcs-domain-status1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-domain-status1.webp" width="1365" height="573" loading="lazy" alt="Domain Status Monitor : tableau de bord"></a>
+                <p class="slide-cap"><span lang="fr">Domain Status Monitor : tableau de bord</span><span lang="en">Domain Status Monitor: dashboard</span><span class="slide-n">1 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="2 / 9">
+                <a href="assets/whmcs-domain-status2.webp" target="_blank" rel="noopener"><img src="assets/whmcs-domain-status2.webp" width="1365" height="573" loading="lazy" alt="Domain Status Monitor : domaines à vérifier"></a>
+                <p class="slide-cap"><span lang="fr">Domain Status Monitor : domaines à vérifier</span><span lang="en">Domain Status Monitor: domains to review</span><span class="slide-n">2 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="3 / 9">
+                <a href="assets/whmcs-hosting-status1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-hosting-status1.webp" width="1365" height="573" loading="lazy" alt="Hosting Status : état des services et des sauvegardes"></a>
+                <p class="slide-cap"><span lang="fr">Hosting Status : état des services et des sauvegardes</span><span lang="en">Hosting Status: services and backups</span><span class="slide-n">3 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="4 / 9">
+                <a href="assets/whmcs-hosting-status3.webp" target="_blank" rel="noopener"><img src="assets/whmcs-hosting-status3.webp" width="1365" height="568" loading="lazy" alt="Hosting Status : détail d'une anomalie"></a>
+                <p class="slide-cap"><span lang="fr">Hosting Status : détail d'une anomalie</span><span lang="en">Hosting Status: anomaly detail</span><span class="slide-n">4 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="5 / 9">
+                <a href="assets/whmcs-hosting-status4.webp" target="_blank" rel="noopener"><img src="assets/whmcs-hosting-status4.webp" width="1365" height="568" loading="lazy" alt="Hosting Status : commentaires d'équipe"></a>
+                <p class="slide-cap"><span lang="fr">Hosting Status : commentaires d'équipe</span><span lang="en">Hosting Status: team comments</span><span class="slide-n">5 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="6 / 9">
+                <a href="assets/whmcs-mail-migration-1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-mail-migration-1.webp" width="1365" height="573" loading="lazy" alt="Mail Migration : tableau de bord"></a>
+                <p class="slide-cap"><span lang="fr">Mail Migration : tableau de bord</span><span lang="en">Mail Migration: dashboard</span><span class="slide-n">6 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="7 / 9">
+                <a href="assets/whmcs-mail-migration-reglage-2.webp" target="_blank" rel="noopener"><img src="assets/whmcs-mail-migration-reglage-2.webp" width="1365" height="573" loading="lazy" alt="Mail Migration : quotas par produit"></a>
+                <p class="slide-cap"><span lang="fr">Mail Migration : quotas par produit</span><span lang="en">Mail Migration: quotas per product</span><span class="slide-n">7 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="8 / 9">
+                <a href="assets/whmcs-service-tracker1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-service-tracker1.webp" width="1365" height="573" loading="lazy" alt="Service Tracker : synthèse par période"></a>
+                <p class="slide-cap"><span lang="fr">Service Tracker : synthèse par période</span><span lang="en">Service Tracker: summary by period</span><span class="slide-n">8 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="9 / 9">
+                <a href="assets/whmcs-service-tracker4.webp" target="_blank" rel="noopener"><img src="assets/whmcs-service-tracker4.webp" width="1365" height="573" loading="lazy" alt="Service Tracker : services configurés"></a>
+                <p class="slide-cap"><span lang="fr">Service Tracker : services configurés</span><span lang="en">Service Tracker: configured services</span><span class="slide-n">9 / 9</span></p>
+              </li>
+              </ul>
+              <button type="button" class="nav prev" aria-label="Capture précédente">&#8249;</button>
+              <button type="button" class="nav next" aria-label="Capture suivante">&#8250;</button>
+            </div>
+            <figcaption><span lang="fr">Données clients et montants floutés.</span><span lang="en">Customer data and amounts blurred.</span></figcaption>
           </figure>
           <figure class="shot">
             <video controls preload="none" poster="assets/mail-migration-poster.webp" width="1364" height="678">
@@ -528,6 +588,23 @@ footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; justify-cont
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
     } else { fallback(); }
+  });
+  // Carrousels
+  document.querySelectorAll('.carousel').forEach(function (c) {
+    var track = c.querySelector('.track'), prev = c.querySelector('.prev'), next = c.querySelector('.next');
+    function step(d) { track.scrollBy({ left: d * track.clientWidth, behavior: 'smooth' }); }
+    function update() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2; next.disabled = track.scrollLeft >= max;
+    }
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    track.addEventListener('scroll', update, { passive: true });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    });
+    update();
   });
 })();
 </script>
