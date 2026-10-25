@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Jaurès Edmes GOZO</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="description" content="Portfolio de Jaurès Edmes GOZO : développement web, outils d'infrastructure et jeu vidéo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: colonne unique de 1080px ; chaque projet = fiche technique (méta à gauche, contenu à droite), qui passe en une colonne sur mobile */
+:root {
+  --bg: #F3F5F2;
+  --surface: #FFFFFF;
+  --ink: #16201D;
+  --muted: #56625D;
+  --line: #D6DCD7;
+  --accent: #2346A0;
+  --accent-soft: #E3E9F8;
+  --on-accent: #FFFFFF;
+  --warn: #9A5A0C;
+  --warn-soft: #F6E9D6;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(2.2rem, 5vw, 3.4rem);
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1513; --surface: #161E1B; --ink: #E3EAE6; --muted: #9AA7A1; --line: #29342F;
+    --accent: #9DB4FF; --accent-soft: #1E2944; --on-accent: #0F1513; --warn: #F0B467; --warn-soft: #3A2C17;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1513; --surface: #161E1B; --ink: #E3EAE6; --muted: #9AA7A1; --line: #29342F;
+  --accent: #9DB4FF; --accent-soft: #1E2944; --on-accent: #0F1513; --warn: #F0B467; --warn-soft: #3A2C17;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html[data-lang="fr"] [lang="en"], html[data-lang="en"] [lang="fr"] { display: none !important; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Barre du haut */
+.topbar { border-bottom: 1px solid var(--line); }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.mark { font-family: var(--font-mono); font-size: .85rem; color: var(--muted); letter-spacing: .04em; }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.lang button {
+  font: 500 .8rem var(--font-mono); letter-spacing: .06em;
+  background: transparent; color: var(--muted); border: 0; padding: 6px 12px; cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* Présentation */
+.intro .wrap { padding-block: 56px 40px; display: grid; gap: 28px; }
+.intro h1 {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--step-3);
+  line-height: 1.05; letter-spacing: -.02em; margin: 0; text-wrap: balance;
+}
+.intro-top { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; align-items: end; }
+.intro-text { display: grid; gap: 24px; min-width: 0; }
+.portrait { width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); }
+.role { font-size: var(--step-1); color: var(--muted); margin: 10px 0 0; max-width: 40ch; text-wrap: balance; }
+.bio { max-width: 64ch; margin: 0; }
+.contact { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; font-size: .95rem; }
+.contact .email { display: inline-flex; align-items: center; gap: 8px; }
+.contact code { font-family: var(--font-mono); font-size: .9rem; user-select: all; }
+.copy {
+  font: 500 .75rem var(--font-mono); letter-spacing: .05em;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  border-radius: var(--radius); padding: 4px 8px; cursor: pointer;
+}
+.copy:hover { border-color: var(--accent); }
+.where { color: var(--muted); }
+.cv-btn { display: inline-block; background: var(--accent); color: var(--on-accent); text-decoration: none; font-weight: 600; padding: 7px 14px; border-radius: var(--radius); }
+.cv-btn:hover { text-decoration: none; filter: brightness(1.1); }
+
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.skills > div { padding: 16px 16px 4px 0; min-width: 0; }
+.skills > div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+.label {
+  font-family: var(--font-mono); font-size: .72rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 6px;
+}
+.skills p { margin: 0 0 12px; font-size: .95rem; }
+
+/* Onglets */
+.tabs-bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.tabs { display: flex; gap: 4px; overflow-x: auto; }
+.tabs button {
+  font: 600 1rem var(--font-body); color: var(--muted); background: none; border: 0;
+  padding: 16px 4px 14px; margin-right: 24px; cursor: pointer; white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.tabs button .count { font: 400 .8rem var(--font-mono); margin-left: 6px; color: var(--muted); }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* Projets */
+.panel .wrap { padding-block: 8px 64px; }
+.panel-intro { color: var(--muted); max-width: 64ch; margin: 28px 0 8px; }
+.project {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px;
+  padding-block: 40px; border-bottom: 1px solid var(--line);
+}
+.project:last-child { border-bottom: 0; }
+.meta { display: grid; gap: 16px; align-content: start; font-size: .9rem; }
+.meta dl { margin: 0; display: grid; gap: 14px; }
+.meta dt { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.meta dd { margin: 2px 0 0; }
+.stack { font-family: var(--font-mono); font-size: .82rem; line-height: 1.7; }
+.chip {
+  justify-self: start; font: 500 .75rem var(--font-mono); letter-spacing: .04em;
+  padding: 3px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent);
+}
+.chip.wip { background: var(--warn-soft); color: var(--warn); }
+
+.body { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; }
+.shot, .carousel .track-wrap { min-width: 0; }
+.body h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); line-height: 1.15; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.summary { margin: 0; max-width: 64ch; }
+.body ul { margin: 0; padding-left: 1.1em; max-width: 64ch; display: grid; gap: 6px; }
+.body li::marker { color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-weight: 500; font-size: .95rem; }
+.links .private { color: var(--muted); font-weight: 400; }
+.links a::after { content: " ↗"; font-size: .85em; }
+
+.shot { margin: 8px 0 0; }
+.shot a { display: block; }
+.shot img, .shot video {
+  display: block; width: 100%; max-width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+}
+.carousel .track-wrap { position: relative; }
+.carousel .track {
+  list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; gap: 12px; scrollbar-width: none; border-radius: var(--radius);
+}
+.carousel .track::-webkit-scrollbar { display: none; }
+.carousel .slide { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
+.slide-cap { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 0; font-size: .85rem; }
+.slide-n { font-family: var(--font-mono); color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.carousel .nav {
+  position: absolute; top: calc(50% - 32px); width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font-size: 1.5rem; line-height: 1; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.carousel .nav:hover { border-color: var(--accent); color: var(--accent); }
+.carousel .nav:disabled { opacity: .35; cursor: default; }
+.carousel .prev { left: 10px; } .carousel .next { right: 10px; }
+.carousel .track { max-width: none; padding: 0; }
+@media (min-width: 900px) {
+  .carousel .prev { left: -54px; } .carousel .next { right: -54px; }
+  .carousel .nav { box-shadow: none; }
+}
+.shot figcaption { font-size: .82rem; color: var(--muted); margin-top: 8px; }
+
+.modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.modules section { background: var(--surface); padding: 16px 18px; min-width: 0; }
+.modules h4 { margin: 0 0 6px; font-size: 1rem; font-weight: 600; }
+.modules h4 small { font: 400 .75rem var(--font-mono); color: var(--muted); margin-left: 6px; }
+.modules p { margin: 0; font-size: .92rem; color: var(--muted); }
+
+.soon { padding-block: 56px 72px; max-width: 64ch; display: grid; gap: 10px; }
+.soon h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); line-height: 1.15; margin: 0; }
+.soon p { margin: 0; }
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: .85rem; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .project { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 32px; }
+  .meta dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skills { grid-template-columns: minmax(0, 1fr); }
+  .skills > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  .modules { grid-template-columns: minmax(0, 1fr); }
+  .intro-top { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .portrait { width: 140px; order: -1; }
+  .intro .wrap { padding-block: 36px 28px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="wrap">
+    <span class="mark">JE.GOZO / portfolio</span>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button type="button" id="lang-fr" data-set-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" id="lang-en" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-top">
+    <div class="intro-text">
+    <div>
+      <h1>Jaurès Edmes GOZO</h1>
+      <p class="role">
+        <span lang="fr">Développeur web et outils d'infrastructure. Étudiant en développement jeu vidéo.</span>
+        <span lang="en">Web and infrastructure tooling developer. Game development student.</span>
+      </p>
+    </div>
+    <p class="bio">
+      <span lang="fr">Diplômé d'une licence en Génie Logiciel (Pigier Bénin), j'ai construit des outils internes pour un registrar et hébergeur chez IT-NUM : surveillance des domaines et des services, migration de mails, automatisations n8n. Je suis aujourd'hui en 3e année du Bachelor G.Tech au Gaming Campus de Paris, où je travaille en C# sous Unity.</span>
+      <span lang="en">I hold a bachelor's degree in Software Engineering (Pigier Benin). At IT-NUM, I built internal tools for a domain registrar and hosting provider: domain and service monitoring, email migration, n8n automations. I am now in the third year of the G.Tech Bachelor at Gaming Campus Paris, working in C# with Unity.</span>
+    </p>
+    <div class="contact">
+      <span class="email">
+        <code id="email">edmes.gozo@gmail.com</code>
+        <button type="button" class="copy" id="copy-email"><span lang="fr">Copier</span><span lang="en">Copy</span></button>
+      </span>
+      <a href="https://www.linkedin.com/in/jaur%C3%A8s-edm%C3%A8s-gozo-a38308233" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/JauresAAAAGZ" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://gitlab.com/edmes.gozo" target="_blank" rel="noopener">GitLab</a>
+      <a class="cv-btn" href="assets/CV_Jaures_Edmes_GOZO.pdf" target="_blank" rel="noopener" download><span lang="fr">Télécharger le CV</span><span lang="en">Download CV</span> (PDF)</a>
+      <span class="where">Paris, France</span>
+    </div>
+    </div>
+    <img class="portrait" src="assets/photo.webp" width="560" height="700" alt="Portrait de Jaurès Edmes GOZO">
+    </div>
+    <div class="skills">
+      <div>
+        <p class="label"><span lang="fr">Web et back-end</span><span lang="en">Web and back end</span></p>
+        <p>PHP, Laravel, MySQL, Java, Spring Boot, API REST, Bootstrap, Tailwind</p>
+      </div>
+      <div>
+        <p class="label"><span lang="fr">Infra et automatisation</span><span lang="en">Infrastructure and automation</span></p>
+        <p>WHMCS, n8n, WHOIS, IMAP, SSH, cron, Git, GitLab CI</p>
+      </div>
+      <div>
+        <p class="label"><span lang="fr">Jeu vidéo</span><span lang="en">Game development</span></p>
+        <p>C#, Unity (URP), Unreal Engine (Blueprint, PCG)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="tabs-bar" aria-label="Projets">
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="tab-dev" aria-controls="dev" aria-selected="true">
+        <span lang="fr">IT et développement</span><span lang="en">IT and development</span><span class="count">6</span>
+      </button>
+      <button type="button" role="tab" id="tab-jeux" aria-controls="jeux" aria-selected="false" tabindex="-1">
+        <span lang="fr">Jeux vidéo</span><span lang="en">Video games</span><span class="count"><span lang="fr">bientôt</span><span lang="en">soon</span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- ===================== IT ET DÉVELOPPEMENT ===================== -->
+  <section class="panel" id="dev" role="tabpanel" aria-labelledby="tab-dev">
+    <div class="wrap">
+
+      <article class="project">
+        <aside class="meta">
+          <span class="chip"><span lang="fr">Stage</span><span lang="en">Internship</span> · IT-NUM</span>
+          <dl>
+            <div><dt><span lang="fr">Contexte</span><span lang="en">Context</span></dt><dd><span lang="fr">Registrar et hébergeur, Bénin, 2026</span><span lang="en">Registrar and hosting provider, Benin, 2026</span></dd></div>
+            <div><dt><span lang="fr">Rôle</span><span lang="en">Role</span></dt><dd><span lang="fr">Développeur des modules</span><span lang="en">Module developer</span></dd></div>
+            <div><dt>Stack</dt><dd class="stack">PHP · WHMCS Addon API · localAPI · MySQL · cron · SSH</dd></div>
+          </dl>
+        </aside>
+        <div class="body">
+          <h3><span lang="fr">Modules d'administration WHMCS</span><span lang="en">WHMCS admin modules</span></h3>
+          <p class="summary">
+            <span lang="fr">Quatre modules ajoutés au back-office WHMCS pour repérer les incohérences entre facturation, domaines et services, et pour automatiser les migrations de boîtes mail des clients.</span>
+            <span lang="en">Four add-ons for the WHMCS back office. They detect mismatches between billing, domains and services, and automate customer mailbox migrations.</span>
+          </p>
+          <div class="modules">
+            <section>
+              <h4>Domain Status Monitor <small>domain_guard</small></h4>
+              <p><span lang="fr">Compare l'état de chaque domaine dans WHMCS avec le WHOIS et le classe en OK, WARNING ou CRITICAL. Règles d'exclusion, traitement par lots et exécution par cron.</span><span lang="en">Compares each domain's status in WHMCS with WHOIS and flags it as OK, WARNING or CRITICAL. Exclusion rules, batch processing and cron runs.</span></p>
+            </section>
+            <section>
+              <h4>Hosting Status <small>ServiceWatch</small></h4>
+              <p><span lang="fr">Surveille les services d'hébergement : statut, facture et échéance qui ne concordent pas, sauvegardes manquantes vérifiées par SSH. Commentaires d'équipe en Markdown avec pièces jointes.</span><span lang="en">Monitors hosting services: status, invoice and due date that do not match, missing backups checked over SSH. Team comments in Markdown with attachments.</span></p>
+            </section>
+            <section>
+              <h4>Mail Migration <small>mailMigration</small></h4>
+              <p><span lang="fr">Migrations IMAP planifiées depuis l'espace client, pour un compte ou plusieurs via un fichier importé. Contrôle de l'espace disponible avant lancement, jetons vendus en addon, quotas par produit.</span><span lang="en">Scheduled IMAP migrations from the client area, for one account or many through an imported file. Checks available space before starting, tokens sold as an add-on, quotas per product.</span></p>
+            </section>
+            <section>
+              <h4>Service Tracker</h4>
+              <p><span lang="fr">Suivi du montant dû par service et par période, association des produits WHMCS aux services fournisseurs, export Excel.</span><span lang="en">Tracks amounts due per service and period, maps WHMCS products to supplier services, Excel export.</span></p>
+            </section>
+          </div>
+          <figure class="shot carousel" aria-roledescription="carousel" aria-label="Captures des modules WHMCS">
+            <div class="track-wrap">
+              <ul class="track" tabindex="0">
+              <li class="slide" aria-roledescription="slide" aria-label="1 / 9">
+                <a href="assets/whmcs-domain-status1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-domain-status1.webp" width="1365" height="573" loading="lazy" alt="Domain Status Monitor : tableau de bord"></a>
+                <p class="slide-cap"><span lang="fr">Domain Status Monitor : tableau de bord</span><span lang="en">Domain Status Monitor: dashboard</span><span class="slide-n">1 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="2 / 9">
+                <a href="assets/whmcs-domain-status2.webp" target="_blank" rel="noopener"><img src="assets/whmcs-domain-status2.webp" width="1365" height="573" loading="lazy" alt="Domain Status Monitor : domaines à vérifier"></a>
+                <p class="slide-cap"><span lang="fr">Domain Status Monitor : domaines à vérifier</span><span lang="en">Domain Status Monitor: domains to review</span><span class="slide-n">2 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="3 / 9">
+                <a href="assets/whmcs-hosting-status1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-hosting-status1.webp" width="1365" height="573" loading="lazy" alt="Hosting Status : état des services et des sauvegardes"></a>
+                <p class="slide-cap"><span lang="fr">Hosting Status : état des services et des sauvegardes</span><span lang="en">Hosting Status: services and backups</span><span class="slide-n">3 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="4 / 9">
+                <a href="assets/whmcs-hosting-status3.webp" target="_blank" rel="noopener"><img src="assets/whmcs-hosting-status3.webp" width="1365" height="568" loading="lazy" alt="Hosting Status : détail d'une anomalie"></a>
+                <p class="slide-cap"><span lang="fr">Hosting Status : détail d'une anomalie</span><span lang="en">Hosting Status: anomaly detail</span><span class="slide-n">4 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="5 / 9">
+                <a href="assets/whmcs-hosting-status4.webp" target="_blank" rel="noopener"><img src="assets/whmcs-hosting-status4.webp" width="1365" height="568" loading="lazy" alt="Hosting Status : commentaires d'équipe"></a>
+                <p class="slide-cap"><span lang="fr">Hosting Status : commentaires d'équipe</span><span lang="en">Hosting Status: team comments</span><span class="slide-n">5 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="6 / 9">
+                <a href="assets/whmcs-mail-migration-1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-mail-migration-1.webp" width="1365" height="573" loading="lazy" alt="Mail Migration : tableau de bord"></a>
+                <p class="slide-cap"><span lang="fr">Mail Migration : tableau de bord</span><span lang="en">Mail Migration: dashboard</span><span class="slide-n">6 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="7 / 9">
+                <a href="assets/whmcs-mail-migration-reglage-2.webp" target="_blank" rel="noopener"><img src="assets/whmcs-mail-migration-reglage-2.webp" width="1365" height="573" loading="lazy" alt="Mail Migration : quotas par produit"></a>
+                <p class="slide-cap"><span lang="fr">Mail Migration : quotas par produit</span><span lang="en">Mail Migration: quotas per product</span><span class="slide-n">7 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="8 / 9">
+                <a href="assets/whmcs-service-tracker1.webp" target="_blank" rel="noopener"><img src="assets/whmcs-service-tracker1.webp" width="1365" height="573" loading="lazy" alt="Service Tracker : synthèse par période"></a>
+                <p class="slide-cap"><span lang="fr">Service Tracker : synthèse par période</span><span lang="en">Service Tracker: summary by period</span><span class="slide-n">8 / 9</span></p>
+              </li>
+              <li class="slide" aria-roledescription="slide" aria-label="9 / 9">
+                <a href="assets/whmcs-service-tracker4.webp" target="_blank" rel="noopener"><img src="assets/whmcs-service-tracker4.webp" width="1365" height="573" loading="lazy" alt="Service Tracker : services configurés"></a>
+                <p class="slide-cap"><span lang="fr">Service Tracker : services configurés</span><span lang="en">Service Tracker: configured services</span><span class="slide-n">9 / 9</span></p>
+              </li>
+              </ul>
+              <button type="button" class="nav prev" aria-label="Capture précédente">&#8249;</button>
+              <button type="button" class="nav next" aria-label="Capture suivante">&#8250;</button>
+            </div>
+            <figcaption><span lang="fr">Données clients et montants floutés.</span><span lang="en">Customer data and amounts blurred.</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <video controls preload="none" poster="assets/mail-migration-poster.webp" width="1364" height="678">
+              <source src="assets/mail-migration-demo.mp4" type="video/mp4">
+            </video>
+            <figcaption><span lang="fr">Démo : migration multi-comptes depuis l'espace client (1 min 53). Données client floutées.</span><span lang="en">Demo: multi-account migration from the client area (1 min 53). Customer data blurred.</span></figcaption>
+          </figure>
+          <div class="links"><span class="private"><span lang="fr">Code privé (entreprise)</span><span lang="en">Private code (company)</span></span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <aside class="meta">
+          <span class="chip"><span lang="fr">Stage</span><span lang="en">Internship</span> · IT-NUM</span>
+          <dl>
+            <div><dt><span lang="fr">Contexte</span><span lang="en">Context</span></dt><dd><span lang="fr">Surveillance des domaines, 2026</span><span lang="en">Domain monitoring, 2026</span></dd></div>
+            <div><dt><span lang="fr">Rôle</span><span lang="en">Role</span></dt><dd><span lang="fr">Conception des workflows</span><span lang="en">Workflow design</span></dd></div>
+            <div><dt>Stack</dt><dd class="stack">n8n · HTTP / API WHOIS · IMAP · SMTP · <span lang="fr">fichiers</span><span lang="en">files</span></dd></div>
+          </dl>
+        </aside>
+        <div class="body">
+          <h3><span lang="fr">Vérification WHOIS automatisée</span><span lang="en">Automated WHOIS checks</span></h3>
+          <p class="summary">
+            <span lang="fr">Deux workflows n8n qui contrôlent qu'un renouvellement ou une création de domaine est bien visible dans le WHOIS.</span>
+            <span lang="en">Two n8n workflows that check that a domain renewal or registration actually shows up in WHOIS.</span>
+          </p>
+          <ul>
+            <li><span lang="fr">À chaque email de renouvellement ou de création, le workflow lit le message, interroge le WHOIS et compare le résultat.</span><span lang="en">For each renewal or registration email, the workflow parses the message, queries WHOIS and compares the result.</span></li>
+            <li><span lang="fr">En cas d'incohérence, l'équipe reçoit une alerte par email. Si le WHOIS ne répond pas, le domaine part dans un fichier d'attente.</span><span lang="en">If something does not match, the team gets an email alert. If WHOIS does not answer, the domain goes into a retry file.</span></li>
+            <li><span lang="fr">Un second workflow relance chaque jour les domaines en attente, envoie un rapport et met le fichier à jour.</span><span lang="en">A second workflow retries the queued domains every day, sends a report and updates the file.</span></li>
+          </ul>
+          <figure class="shot">
+            <a href="assets/n8n-whois.webp" target="_blank" rel="noopener"><img src="assets/n8n-whois.webp" width="1090" height="466" loading="lazy" alt="Workflow n8n de vérification WHOIS"></a>
+            <figcaption><span lang="fr">Workflow principal : branches renouvellement et création, alertes et file de relance.</span><span lang="en">Main workflow: renewal and registration branches, alerts and retry queue.</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/n8n-whois-retry.webp" target="_blank" rel="noopener"><img src="assets/n8n-whois-retry.webp" width="1095" height="150" loading="lazy" alt="Workflow n8n de relance quotidienne"></a>
+            <figcaption><span lang="fr">Relance quotidienne : lecture du fichier d'attente, nouveau WHOIS, rapport par email.</span><span lang="en">Daily retry: reads the queue file, runs WHOIS again, emails a report.</span></figcaption>
+          </figure>
+          <div class="links"><span class="private"><span lang="fr">Workflow privé (entreprise)</span><span lang="en">Private workflow (company)</span></span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <aside class="meta">
+          <span class="chip"><span lang="fr">Projet de soutenance</span><span lang="en">Degree final project</span></span>
+          <dl>
+            <div><dt><span lang="fr">Contexte</span><span lang="en">Context</span></dt><dd><span lang="fr">Licence Génie Logiciel, Pigier Bénin, 2024</span><span lang="en">Software Engineering degree, Pigier Benin, 2024</span></dd></div>
+            <div><dt><span lang="fr">Rôle</span><span lang="en">Role</span></dt><dd><span lang="fr">Développement en binôme</span><span lang="en">Developed in a pair</span></dd></div>
+            <div><dt>Stack</dt><dd class="stack">PHP 8.1 · Laravel 10 · MySQL · Blade · Bootstrap · Vite · dompdf · spatie/medialibrary</dd></div>
+          </dl>
+        </aside>
+        <div class="body">
+          <h3>EduFlow</h3>
+          <p class="summary">
+            <span lang="fr">Plateforme de dépôt des travaux étudiants. Les professeurs ouvrent des dépôts par matière, filière et niveau. Les étudiants envoient leurs fichiers avant la fermeture, puis le professeur saisit les notes et génère un relevé PDF.</span>
+            <span lang="en">Platform for student assignment submissions. Teachers open submission slots per subject, programme and level. Students upload their files before the deadline, then the teacher enters grades and generates a PDF transcript.</span>
+          </p>
+          <ul>
+            <li><span lang="fr">Quatre rôles : étudiant, professeur, administrateur, service des examens.</span><span lang="en">Four roles: student, teacher, administrator, exams office.</span></li>
+            <li><span lang="fr">Compte à rebours de fermeture et refus des dépôts hors délai.</span><span lang="en">Deadline countdown, late submissions refused.</span></li>
+            <li><span lang="fr">Relevés de notes en PDF transmis au service des examens.</span><span lang="en">PDF grade transcripts sent to the exams office.</span></li>
+          </ul>
+          <figure class="shot">
+            <a href="assets/eduflow.webp" target="_blank" rel="noopener"><img src="assets/eduflow.webp" width="1352" height="635" loading="lazy" alt="Tableau de bord professeur dans EduFlow"></a>
+            <figcaption><span lang="fr">Tableau de bord professeur. Données de démonstration.</span><span lang="en">Teacher dashboard. Demo data.</span></figcaption>
+          </figure>
+          <div class="links"><a href="https://github.com/JauresAAAAGZ/Soutenance_2024" target="_blank" rel="noopener"><span lang="fr">Code sur GitHub</span><span lang="en">Code on GitHub</span></a></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <aside class="meta">
+          <span class="chip"><span lang="fr">Projet académique</span><span lang="en">Academic project</span></span>
+          <dl>
+            <div><dt><span lang="fr">Contexte</span><span lang="en">Context</span></dt><dd><span lang="fr">Pigier Bénin, juillet – août 2023</span><span lang="en">Pigier Benin, July – August 2023</span></dd></div>
+            <div><dt><span lang="fr">Rôle</span><span lang="en">Role</span></dt><dd><span lang="fr">Développement complet</span><span lang="en">Full development</span></dd></div>
+            <div><dt>Stack</dt><dd class="stack">PHP 8.1 · Laravel 10 · MySQL · Blade · Bootstrap (SB Admin 2)</dd></div>
+          </dl>
+        </aside>
+        <div class="body">
+          <h3><span lang="fr">Gestion des soutenances</span><span lang="en">Thesis defence management</span></h3>
+          <p class="summary">
+            <span lang="fr">Application qui centralise les étudiants, professeurs, jurys, mémoires et soutenances d'un centre de formation, jusqu'au procès-verbal.</span>
+            <span lang="en">Application that brings together students, teachers, juries, theses and defences for a training centre, up to the official report.</span>
+          </p>
+          <ul>
+            <li><span lang="fr">Composition des jurys : président, examinateur, rapporteur.</span><span lang="en">Jury setup: chair, examiner, rapporteur.</span></li>
+            <li><span lang="fr">Planning des soutenances par date, heure et salle, filtrable par filière.</span><span lang="en">Defence schedule by date, time and room, filterable by programme.</span></li>
+            <li><span lang="fr">Génération du procès-verbal de soutenance pour chaque étudiant.</span><span lang="en">Defence report generated for each student.</span></li>
+            <li><span lang="fr">Quatre niveaux d'accès selon le poste dans l'établissement.</span><span lang="en">Four access levels based on staff position.</span></li>
+          </ul>
+          <figure class="shot">
+            <a href="assets/soutenance.webp" target="_blank" rel="noopener"><img src="assets/soutenance.webp" width="1346" height="570" loading="lazy" alt="Planning des soutenances"></a>
+            <figcaption><span lang="fr">Planning des soutenances. Données de démonstration.</span><span lang="en">Defence schedule. Demo data.</span></figcaption>
+          </figure>
+          <div class="links"><a href="https://github.com/JauresAAAAGZ/Sout_pigier" target="_blank" rel="noopener"><span lang="fr">Code sur GitHub</span><span lang="en">Code on GitHub</span></a></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <aside class="meta">
+          <span class="chip"><span lang="fr">Projet personnel</span><span lang="en">Personal project</span></span>
+          <dl>
+            <div><dt><span lang="fr">Contexte</span><span lang="en">Context</span></dt><dd><span lang="fr">API REST et déploiement continu, 2026</span><span lang="en">REST API and continuous deployment, 2026</span></dd></div>
+            <div><dt><span lang="fr">Rôle</span><span lang="en">Role</span></dt><dd><span lang="fr">Développement, conteneurs et pipeline</span><span lang="en">Development, containers and pipeline</span></dd></div>
+            <div><dt>Stack</dt><dd class="stack">Java 17 · Spring Boot 4 · Spring Security (JWT) · JPA · PostgreSQL · Kafka · Redis · Docker Compose · GitLab CI/CD</dd></div>
+          </dl>
+        </aside>
+        <div class="body">
+          <h3>Job CRUD API</h3>
+          <p class="summary">
+            <span lang="fr">API REST de gestion d'offres d'emploi, de personnes, de projets et de types de projet. Tout tourne en conteneurs et un pipeline GitLab teste, déploie et sait revenir à la version précédente.</span>
+            <span lang="en">REST API to manage job offers, people, projects and project types. Everything runs in containers, and a GitLab pipeline tests, deploys and can roll back to the previous version.</span>
+          </p>
+          <ul>
+            <li><span lang="fr">Authentification JWT, lecture pour les utilisateurs connectés, suppression réservée au rôle ADMIN.</span><span lang="en">JWT authentication, read access for signed-in users, delete restricted to the ADMIN role.</span></li>
+            <li><span lang="fr">Service de notification séparé qui consomme les événements Kafka, avec Redis pour éviter les doublons.</span><span lang="en">Separate notification service consuming Kafka events, with Redis to avoid duplicates.</span></li>
+            <li><span lang="fr">Pipeline en trois étapes : tests Maven, déploiement Docker avec contrôle de santé, rollback.</span><span lang="en">Three-stage pipeline: Maven tests, Docker deployment with health check, rollback.</span></li>
+            <li><span lang="fr">Documentation OpenAPI 3.1 générée et publiée par le pipeline.</span><span lang="en">OpenAPI 3.1 documentation generated and published by the pipeline.</span></li>
+          </ul>
+          <figure class="shot">
+            <a href="assets/job-api.webp" target="_blank" rel="noopener"><img src="assets/job-api.webp" width="1359" height="637" loading="lazy" alt="Documentation Swagger de la Job CRUD API"></a>
+          </figure>
+          <div class="links"><a href="https://gitlab.com/edmes.gozo/jobapp_cicd" target="_blank" rel="noopener"><span lang="fr">Code sur GitLab</span><span lang="en">Code on GitLab</span></a></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <aside class="meta">
+          <span class="chip"><span lang="fr">Client</span><span lang="en">Client work</span></span>
+          <dl>
+            <div><dt><span lang="fr">Contexte</span><span lang="en">Context</span></dt><dd><span lang="fr">Cabinet RH, Cotonou</span><span lang="en">HR consultancy, Cotonou</span></dd></div>
+            <div><dt><span lang="fr">Rôle</span><span lang="en">Role</span></dt><dd><span lang="fr">Réalisation complète</span><span lang="en">End-to-end build</span></dd></div>
+            <div><dt>Stack</dt><dd class="stack">WordPress · Elementor · PHP · HTML · CSS</dd></div>
+          </dl>
+        </aside>
+        <div class="body">
+          <h3>Allo RH Pro</h3>
+          <p class="summary">
+            <span lang="fr">Site vitrine d'un cabinet de conseil en ressources humaines pour les TPE et PME : services, packs avec pages détaillées et FAQ, témoignages, blog et prise de contact.</span>
+            <span lang="en">Showcase website for an HR consultancy serving small businesses: services, packages with detail pages and FAQ, testimonials, blog and contact.</span>
+          </p>
+          <ul>
+            <li><span lang="fr">Conception du site, choix et personnalisation du thème, mise en page avec Elementor, adaptation des contenus fournis par le client.</span><span lang="en">Site design, theme selection and customisation, page layouts built with Elementor, adaptation of the client's content.</span></li>
+            <li><span lang="fr">Extension WordPress écrite pour le menu latéral des pages Packs et Services.</span><span lang="en">Custom WordPress plugin for the side menu on the Packages and Services pages.</span></li>
+            <li><span lang="fr">Une page entièrement codée en HTML et intégrée au site, là où WordPress ne permettait pas la mise en page voulue.</span><span lang="en">One page hand-coded in HTML and integrated into the site, where WordPress could not produce the layout needed.</span></li>
+          </ul>
+          <div class="links"><a href="https://allorhpro.com" target="_blank" rel="noopener"><span lang="fr">Voir le site</span><span lang="en">Visit the site</span></a></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===================== JEUX VIDÉO ===================== -->
+  <section class="panel" id="jeux" role="tabpanel" aria-labelledby="tab-jeux" hidden>
+    <div class="wrap">
+      <div class="soon">
+        <p class="label"><span lang="fr">Bientôt</span><span lang="en">Coming soon</span></p>
+        <h3><span lang="fr">Projets jeu vidéo en préparation</span><span lang="en">Game projects in progress</span></h3>
+        <p>
+          <span lang="fr">Je suis en 3e année du Bachelor G.Tech au Gaming Campus Paris. Mes projets Unity et Unreal, centrés sur la génération procédurale, seront présentés ici dès qu'ils seront prêts.</span>
+          <span lang="en">I am in the third year of the G.Tech Bachelor at Gaming Campus Paris. My Unity and Unreal projects, focused on procedural generation, will be shown here once they are ready.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Jaurès Edmes GOZO</span>
+    <span><span lang="fr">Données clients floutées sur toutes les captures.</span><span lang="en">Customer data blurred in all screenshots.</span></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+  // Langue
+  function setLang(l) {
+    root.setAttribute('data-lang', l);
+    root.setAttribute('lang', l);
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === l));
+    });
+    store('pf-lang', l);
+  }
+  var initial = read('pf-lang') || ((navigator.language || 'fr').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en');
+  setLang(initial);
+  document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); });
+  });
+
+  // Onglets
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(id, focus) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      if (on && focus) t.focus();
+    });
+    if (location.hash !== '#' + id) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t.getAttribute('aria-controls')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(n.getAttribute('aria-controls'), true);
+    });
+  });
+  var h = (location.hash || '').slice(1);
+  if (h === 'jeux' || h === 'dev') select(h);
+
+  // Copier l'email
+  var btn = document.getElementById('copy-email');
+  btn.addEventListener('click', function () {
+    var text = document.getElementById('email').textContent;
+    function done(ok) {
+      btn.innerHTML = ok ? '<span lang="fr">Copié</span><span lang="en">Copied</span>' : '<span lang="fr">Sélectionné</span><span lang="en">Selected</span>';
+      setTimeout(function () { btn.innerHTML = '<span lang="fr">Copier</span><span lang="en">Copy</span>'; }, 1800);
+    }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done(false);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+    } else { fallback(); }
+  });
+  // Carrousels
+  document.querySelectorAll('.carousel').forEach(function (c) {
+    var track = c.querySelector('.track'), prev = c.querySelector('.prev'), next = c.querySelector('.next');
+    function step(d) { track.scrollBy({ left: d * track.clientWidth, behavior: 'smooth' }); }
+    function update() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2; next.disabled = track.scrollLeft >= max;
+    }
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    track.addEventListener('scroll', update, { passive: true });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    });
+    update();
+  });
+})();
+</script>
+
+</body>
+</html>
