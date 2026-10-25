@@ -71,6 +71,16 @@ a:hover { text-decoration-thickness: 2px; }
 .topbar { border-bottom: 1px solid var(--line); }
 .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .mark { font-family: var(--font-mono); font-size: .85rem; color: var(--muted); letter-spacing: .04em; }
+.top-actions { display: flex; gap: 10px; align-items: center; }
+.theme-btn { display: grid; place-items: center; width: 32px; height: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; }
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.theme-btn .ico-sun { display: none; }
+:root[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+:root[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-btn .ico-sun { display: block; }
+  :root:not([data-theme="light"]) .theme-btn .ico-moon { display: none; }
+}
 .lang { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
 .lang button {
   font: 500 .8rem var(--font-mono); letter-spacing: .06em;
@@ -214,9 +224,15 @@ footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; justify-cont
 <header class="topbar">
   <div class="wrap">
     <span class="mark">JE.GOZO / portfolio</span>
+    <div class="top-actions">
+    <button type="button" class="theme-btn" id="theme-btn" aria-label="Changer de thème / Toggle theme">
+      <svg class="ico-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+    </button>
     <div class="lang" role="group" aria-label="Langue / Language">
       <button type="button" id="lang-fr" data-set-lang="fr" aria-pressed="true">FR</button>
       <button type="button" id="lang-en" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
     </div>
   </div>
 </header>
@@ -544,6 +560,17 @@ footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; justify-cont
   var root = document.documentElement;
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+  // Thème clair / sombre
+  var tb = document.getElementById('theme-btn');
+  var savedTheme = read('pf-theme');
+  if (savedTheme === 'dark' || savedTheme === 'light') root.setAttribute('data-theme', savedTheme);
+  tb.addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme') ||
+      (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next); store('pf-theme', next);
+  });
 
   // Langue
   function setLang(l) {
