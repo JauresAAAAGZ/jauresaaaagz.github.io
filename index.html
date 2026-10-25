@@ -172,6 +172,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .carousel .nav:hover { border-color: var(--accent); color: var(--accent); }
 .carousel .nav:disabled { opacity: .35; cursor: default; }
 .carousel .prev { left: 10px; } .carousel .next { right: 10px; }
+.carousel .track { max-width: none; padding: 0; }
+@media (min-width: 900px) {
+  .carousel .prev { left: -54px; } .carousel .next { right: -54px; }
+  .carousel .nav { box-shadow: none; }
+}
 .shot figcaption { font-size: .82rem; color: var(--muted); margin-top: 8px; }
 
 .modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
